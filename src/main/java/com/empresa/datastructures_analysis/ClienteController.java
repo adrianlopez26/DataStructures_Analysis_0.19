@@ -19,7 +19,6 @@ public class ClienteController {
     private TextField nombreField;
     @FXML
     private TextField correoElectronicoField;
-
     @FXML
     private TableView<Cliente> tablaClientes;
     @FXML
@@ -46,7 +45,7 @@ public class ClienteController {
     private void actualizarTabla() {
         ObservableList<Cliente> data = FXCollections.observableArrayList();
         // Aquí debes obtener los datos de la base de datos y agregarlos a 'data'
-        // Por ejemplo: data.addAll(mongoDBApp.getAllClientes());
+        data.addAll(mongoDBApp.getAllClientes());
         tablaClientes.setItems(data);
     }
 

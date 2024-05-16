@@ -2,9 +2,13 @@ package com.empresa.datastructures_analysis;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MongoDBApp {
     private MongoClient client;
@@ -16,6 +20,16 @@ public class MongoDBApp {
         client = new MongoClient(uri);
         database = client.getDatabase("javaadri");
         collection = database.getCollection("analisis");
+    }
+
+    public List<Cliente> getAllClientes() {
+        List<Cliente> clientes = new ArrayList<>();
+        MongoCollection<Document> collection = database.getCollection("analisis"); // Asegúrate de que este es el nombre correcto de la colección
+        FindIterable<Document> docs = collection.find();
+        for (Document doc : docs) {
+            clientes.add(Cliente.fromDocument(doc));
+        }
+        return clientes;
     }
 
     public void createCliente(String id, String nombre, String correoElectronico) {
